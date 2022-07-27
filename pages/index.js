@@ -5,9 +5,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-
 
 const App = (props) => {
 	const [users, setUsers] = useState([
@@ -23,27 +20,22 @@ const App = (props) => {
 			.then((response) => response.json())
 			.then((json) => {setUsers(json); setLoading(false)});
 	});
-	return (
-		<div className="App">
-			<h1>Lista de usuários</h1>
-			<div className="card">
+	return (  
+        <div className="App" style={{backgroundColor: 'purple'}}>
+			  <h1 style={{color: 'white', paddingTop: '100px', paddingLeft: '800px'}}>Lista de usuários</h1>
+			  <div className="card" style={{color: 'white', backgroundColor: 'purple', padding: '50px'}}>
         {loading ? <h2>Carregando...</h2> : null}
-				<ul>
-        <img src="https://wallpaperaccess.com/full/303189.jpg" alt="" height="200" width="200"/>
+				<ul bstyle={{backgroundColor: 'purple'}}>
 					<List>
             {users.map((user) => (
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemText primary={user.name} />
                 </ListItemButton>
-          </ListItem>
-            ))}
+          </ListItem>))}
             </List>
             <React.Fragment>
           <CssBaseline />
-          <Container fixed>
-            <Box sx={{ bgcolor: '#000000', height: '100vh' }} />
-          </Container>
         </React.Fragment>
 				</ul>
 			</div>
