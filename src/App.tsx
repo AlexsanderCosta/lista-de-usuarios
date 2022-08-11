@@ -8,6 +8,8 @@ import ListItemText from '@mui/material/ListItemText';
 import { Box, Container } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import Avatar from '@mui/material/Avatar';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 const App = (props:any) => {
 
@@ -31,7 +33,7 @@ const App = (props:any) => {
 		});
 	
 		return (
-			<Container className="App">
+			<Container className="App" style={{fontFamily: "Candara"}}>
 				<h2>Lista de usuários</h2>
 				<div className="card">
 				{loading ? <h2>Carregando...</h2> : null}
@@ -39,7 +41,10 @@ const App = (props:any) => {
 					<List>
 						{users.map((user) => (
 							<ListItem disablePadding>
-								<ListItemButton onClick={() => {setPage(1); setMainUser(user.id)}}>
+								<ListItemButton onClick={() => {setPage(2); setMainUser(user.id)}}>
+									<ListItemAvatar>
+										<Avatar  alt = {user.name} src="/static/images/avatar/1.jpg" style={{backgroundColor: "rgba(148, 42, 148, 0.815)"}}/>
+									</ListItemAvatar>
 									<ListItemText primary={user.name} />
 								</ListItemButton>
 						</ListItem>))}
@@ -83,13 +88,13 @@ const App = (props:any) => {
 		});
 
 		return (
-			<Box>
-				<h1>{theUser.name}</h1>
+			<Box style={{color: "white", fontFamily: "Candara",}}>
+				<h1 style={{textAlign: "left"}}>{theUser.name}</h1>
 				<List>
 					{tasks.map((task) => (
-						<ListItem disablePadding>
+						<ListItem disablePadding style={{backgroundColor: "rgba(148, 42, 148, 0.815)"}} sx={{my: "15px", px: "20px", py: "10px", borderRadius: "10px"}}>
 							<ListItemText primary={task.title} />
-							<CheckIcon />
+							{task.completed ? <CheckIcon /> : <ClearIcon />}
 					</ListItem>))}
 				</List>
 			</Box>
@@ -97,10 +102,20 @@ const App = (props:any) => {
 		)
 	}
 
+	const PageUserPost = () => {
+		const [post, setPost] = useState(0);
+
+		return (
+			<h1>AaA</h1>
+		)
+
+	}
+
 	//O que você decide ver
 	const PageDisplay = (props : any) => {
-		if 			(page == 0) {return <PageUsersList/>;}
+		if 		(page == 0) {return <PageUsersList/>;}
 		else if (page == 1) {return <PageUserTasks/>;}
+		else if (page == 2) {return <PageUserPost/>;}
 
 		return <h1>ERRO 404</h1>;
 	}
