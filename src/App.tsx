@@ -5,13 +5,23 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { PostAddSharp } from '@mui/icons-material';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
 
-const App = (props:any) => {
+const App = (props : any) => {
 
 	const [page,setPage] = useState(0);
 	const [mainUser,setMainUser] = useState(0);
@@ -95,7 +105,8 @@ const App = (props:any) => {
 						<ListItem disablePadding style={{backgroundColor: "rgba(148, 42, 148, 0.815)"}} sx={{my: "15px", px: "20px", py: "10px", borderRadius: "10px"}}>
 							<ListItemText primary={task.title} />
 							{task.completed ? <CheckIcon /> : <ClearIcon />}
-					</ListItem>))}
+						</ListItem>
+					))}
 				</List>
 			</Box>
 
@@ -103,10 +114,33 @@ const App = (props:any) => {
 	}
 
 	const PageUserPost = () => {
-		const [post, setPost] = useState(0);
+		const [posts, setPosts] = useState([
+			{userId: 0, id: 0, title: "Carregando...", body: "Carregando..."}
+
+		]);
+
+		const [loading, setLoading] = useState(true);
+
+		useEffect(() => {
+			fetch("https://jsonplaceholder.typicode.com/users/"+ mainUser +"/posts")
+				.then((response) => response.json())
+				.then((json) => {setPosts(json); setLoading(false)});
+		});
 
 		return (
-			<h1>AaA</h1>
+			<Box >
+				<List>
+					{posts.map((post) => (
+						<ListItem >
+							<Box sx={{backgroundColor: "rgba(148, 42, 148, 0.815)", color: "white", mx: "200px", textAlign: "left", p: "10px", pt:"1px", borderRadius: "10px"}}>
+								<h3>{post.title}</h3>
+								<Typography>{post.body}</Typography>
+							</Box>
+						</ListItem>
+					))}
+				</List>
+			</Box>
+
 		)
 
 	}
