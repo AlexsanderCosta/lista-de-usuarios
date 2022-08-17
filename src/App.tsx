@@ -13,17 +13,21 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { PostAddSharp } from '@mui/icons-material';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AlarmIcon from '@mui/icons-material/Alarm';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 const App = (props : any) => {
 
-	const [page,setPage] = useState(0);
+	const [page,setPage] = useState(3);
 	const [mainUser,setMainUser] = useState(0);
 
 	const PageUsersList = () => {
@@ -119,13 +123,28 @@ const App = (props : any) => {
 
 		]);
 
-		const [loading, setLoading] = useState(true);
+		const [users, setUsers] = useState([
+			{ id: 1, name: "Nome 1" },
+		]);
 
 		useEffect(() => {
-			fetch("https://jsonplaceholder.typicode.com/users/"+ mainUser +"/posts")
+			fetch("https://jsonplaceholder.typicode.com/users/")
+				.then((response) => response.json())
+				.then((json) => {setUsers(json); setLoading(false)});
+		});
+
+		const [loading, setLoading] = useState(true);
+
+		var theUser = users.find(user => {return user.id === mainUser;})
+		if (theUser === undefined) {theUser = {id: 1, name: "noname"}}
+
+
+		useEffect(() => {
+			fetch("https://jsonplaceholder.typicode.com/users/"+ (theUser!).id +"/posts")
 				.then((response) => response.json())
 				.then((json) => {setPosts(json); setLoading(false)});
 		});
+		 
 
 		return (
 			<Box >
@@ -133,8 +152,10 @@ const App = (props : any) => {
 					{posts.map((post) => (
 						<ListItem >
 							<Box sx={{backgroundColor: "rgba(148, 42, 148, 0.815)", color: "white", mx: "200px", textAlign: "left", p: "10px", pt:"1px", borderRadius: "10px"}}>
+								<h2>{(theUser!).name}</h2>
 								<h3>{post.title}</h3>
 								<Typography>{post.body}</Typography>
+								
 							</Box>
 						</ListItem>
 					))}
@@ -142,14 +163,25 @@ const App = (props : any) => {
 			</Box>
 
 		)
+		
 
 	}
+
+	const PageUserComents = () => {
+
+		return (
+			<h1>sgha</h1>
+			
+		)
+	}
+
 
 	//O que você decide ver
 	const PageDisplay = (props : any) => {
 		if 		(page == 0) {return <PageUsersList/>;}
 		else if (page == 1) {return <PageUserTasks/>;}
 		else if (page == 2) {return <PageUserPost/>;}
+		else if (page == 3) {return <PageUserComents/>;}
 
 		return <h1>ERRO 404</h1>;
 	}
