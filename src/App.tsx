@@ -16,15 +16,19 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import CommentIcon from '@mui/icons-material/Comment';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+
 
 
 
 
 const App = (props : any) => {
 
-	const [page,setPage] = useState(0);
+	const [page,setPage] = useState(4);
 	const [mainUser,setMainUser] = useState(0);
 	const [mainPost, setMainPost] = useState(0);
+	const [logado, setLogado] = useState(false);
 
 	const PageUsersList = () => {
 
@@ -188,7 +192,7 @@ const App = (props : any) => {
 				<List>
 					{commentsPost.map((comment) => (
 						<ListItem>
-							<Box>
+							<Box sx={{backgroundColor: "rgba(148, 42, 148, 0.815)", color: "white", mx: "200px", textAlign: "left", p: "10px", pt:"1px", borderRadius: "10px"}}>
 							<h2>{comment.name}</h2>
 							<h3>{comment.email}</h3>
 							<h3>{comment.body}</h3>
@@ -196,10 +200,34 @@ const App = (props : any) => {
 						</ListItem>
 					))}
 				</List>
-				<h1>sgha</h1>
-				<h2>{mainPost}</h2>
 			</Box>
 			
+		)
+	}
+
+	const PageLogin = () => {
+		return (
+			<Box sx = {{color: "white", fontFamily: "Candara"} }>
+				<Box sx = {{color: "white", display:"grid", px:"400px", mt:"200px"}} >
+				<TextField label="E-mail" id="outlined-size-small"  size="small" sx = {{color: "white", pb:"20px"}}/>
+        		<TextField label="Senha" id="outlined-size-small"  size="small" sx = {{color: "white"}}/>
+				<Button variant="contained" sx = {{color: "white", mt:"20px"}} onClick={() => {setPage(0); setLogado(true)}}>Login</Button>
+				<Typography sx = {{color:"white", mt:"20px"}}>Não tem conta? </Typography><Link sx = {{color:"#00bcd4", mt:"20px"}} onClick={()=>{setPage(5)}}> Cadastre-se!</Link>
+				</Box>
+      		</Box>
+		)
+	}
+
+	const PageCadastrar = () => {
+		return (
+			<Box sx = {{color: "white", fontFamily: "Candara"} }>
+				<Box sx = {{color: "white", display:"grid", px:"400px", mt:"200px"}} >
+				<TextField label="E-mail" id="outlined-size-small"  size="small" sx = {{color: "white", pb:"20px"}}/>
+        		<TextField label="Senha" id="outlined-size-small"  size="small" sx = {{color: "white"}}/>
+				<Button variant="contained" sx = {{color: "white", mt:"20px"}} onClick={() => {setPage(0); setLogado(true)}}>Cadastrar</Button>
+				<Typography sx = {{color:"white", mt:"20px"}}>Você já tem uma conta? </Typography><Link sx = {{color:"#00bcd4", mt:"20px"}} onClick={()=>{setPage(4)}}> Faça login!</Link>
+				</Box>
+      		</Box>
 		)
 	}
 
@@ -210,34 +238,45 @@ const App = (props : any) => {
 		else if (page == 1) {return <PageUserTasks/>;}
 		else if (page == 2) {return <PageUserPost/>;}
 		else if (page == 3) {return <PageUserComents/>;}
+		else if (page == 4) {return <PageLogin/>;}
+		else if (page == 5) {return <PageCadastrar/>;}		
 
 		return <h1>ERRO 404</h1>;
 	}
 
+	const NavBar = () => {
+		if (logado === true) {
+			return (
+				<Box sx={{ flexGrow: 1 }}>
+				<AppBar position="static">
+				<Toolbar>
+					<IconButton
+					size="large"
+					edge="start"
+					color="inherit"
+					aria-label="menu"
+					sx={{ mr: 2 }}
+					>
+					<MenuIcon />
+					</IconButton>
+					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+					Meu Web Site
+					</Typography>
+					<Button color="inherit" onClick={() => {setPage(4); setLogado(false)}}>Log Out</Button>
+				</Toolbar>
+				</AppBar>
+			</Box>
+			)
+		}
+		else {return <></>;}
+	}
+
+
 	//Oque você vê
 	return (  
-			<Box>
-			<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static">
-			<Toolbar>
-				<IconButton
-				size="large"
-				edge="start"
-				color="inherit"
-				aria-label="menu"
-				sx={{ mr: 2 }}
-				>
-				<MenuIcon />
-				</IconButton>
-				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-				Site
-				</Typography>
-				<Button color="inherit">Login</Button>
-				<Button color="inherit">Log Out</Button>
-			</Toolbar>
-			</AppBar>
-		</Box>
-		<PageDisplay/>
+		<Box>
+			<NavBar/>
+			<PageDisplay/>
 		</Box>
 	);
 };
