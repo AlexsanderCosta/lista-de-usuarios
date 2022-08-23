@@ -1,34 +1,30 @@
 import { useState, useEffect } from 'react'
 import * as React from 'react';
-import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, ListItemIcon, Typography } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import { PostAddSharp } from '@mui/icons-material';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AlarmIcon from '@mui/icons-material/Alarm';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import MenuIcon from '@mui/icons-material/Menu';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import CommentIcon from '@mui/icons-material/Comment';
+
+
+
 
 const App = (props : any) => {
 
-	const [page,setPage] = useState(3);
+	const [page,setPage] = useState(0);
 	const [mainUser,setMainUser] = useState(0);
+	const [mainPost, setMainPost] = useState(0);
 
 	const PageUsersList = () => {
 
@@ -61,6 +57,9 @@ const App = (props : any) => {
 									</ListItemAvatar>
 									<ListItemText primary={user.name} />
 								</ListItemButton>
+								<IconButton color="primary" aria-label="upload picture" component="label" onClick={() => {setPage(1); setMainUser(user.id)}}>
+        						<ListAltIcon />
+      							</IconButton>
 						</ListItem>))}
 					</List>
 						<React.Fragment>
@@ -155,7 +154,9 @@ const App = (props : any) => {
 								<h2>{(theUser!).name}</h2>
 								<h3>{post.title}</h3>
 								<Typography>{post.body}</Typography>
-								
+								<IconButton color="primary" aria-label="comment" component="label" onClick={() => {setPage(3); setMainPost(post.id)}}>
+        						<CommentIcon />
+      							</IconButton>
 							</Box>
 						</ListItem>
 					))}
@@ -168,9 +169,36 @@ const App = (props : any) => {
 	}
 
 	const PageUserComents = () => {
+		const [comments, setComments] = useState ([
+			{ postId: 1, id: 1, name: "nome", email: "email@gmail.com", body: "comment" },
+		]);
+
+		const [loading, setLoading] = useState(true);
+
+		useEffect(() => {
+			fetch("https://jsonplaceholder.typicode.com/users/"+ mainUser +"/comments")
+				.then((response) => response.json())
+				.then((json) => {setComments(json); setLoading(false)});
+		});
+
+		var commentsPost = comments.filter( comment => {return comment.postId === mainPost;})
 
 		return (
-			<h1>sgha</h1>
+			<Box>
+				<List>
+					{commentsPost.map((comment) => (
+						<ListItem>
+							<Box>
+							<h2>{comment.name}</h2>
+							<h3>{comment.email}</h3>
+							<h3>{comment.body}</h3>
+							</Box>
+						</ListItem>
+					))}
+				</List>
+				<h1>sgha</h1>
+				<h2>{mainPost}</h2>
+			</Box>
 			
 		)
 	}
@@ -188,7 +216,29 @@ const App = (props : any) => {
 
 	//Oque você vê
 	return (  
+			<Box>
+			<Box sx={{ flexGrow: 1 }}>
+			<AppBar position="static">
+			<Toolbar>
+				<IconButton
+				size="large"
+				edge="start"
+				color="inherit"
+				aria-label="menu"
+				sx={{ mr: 2 }}
+				>
+				<MenuIcon />
+				</IconButton>
+				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+				Site
+				</Typography>
+				<Button color="inherit">Login</Button>
+				<Button color="inherit">Log Out</Button>
+			</Toolbar>
+			</AppBar>
+		</Box>
 		<PageDisplay/>
+		</Box>
 	);
 };
 
