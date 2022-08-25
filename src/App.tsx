@@ -13,12 +13,11 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import CommentIcon from '@mui/icons-material/Comment';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 
@@ -29,6 +28,15 @@ const App = (props : any) => {
 	const [mainUser,setMainUser] = useState(0);
 	const [mainPost, setMainPost] = useState(0);
 	const [logado, setLogado] = useState(false);
+
+	const PagePrevious = () => {
+		if 		(page == 0) {}
+		else if (page == 1) {setPage(0);}
+		else if (page == 2) {setPage(0);}
+		else if (page == 3) {setPage(2);}
+		else if (page == 4) {}
+		else if (page == 5) {}	
+	}
 
 	const PageUsersList = () => {
 
@@ -109,7 +117,7 @@ const App = (props : any) => {
 				<h1 style={{textAlign: "left"}}>{theUser.name}</h1>
 				<List>
 					{tasks.map((task) => (
-						<ListItem disablePadding style={{backgroundColor: "rgba(148, 42, 148, 0.815)"}} sx={{my: "15px", px: "20px", py: "10px", borderRadius: "10px"}}>
+						<ListItem disablePadding style={{backgroundColor: "rgba(80, 3, 100, 1)"}} sx={{my: "15px", px: "20px", py: "10px", borderRadius: "10px"}}>
 							<ListItemText primary={task.title} />
 							{task.completed ? <CheckIcon /> : <ClearIcon />}
 						</ListItem>
@@ -154,7 +162,7 @@ const App = (props : any) => {
 				<List>
 					{posts.map((post) => (
 						<ListItem >
-							<Box sx={{backgroundColor: "rgba(148, 42, 148, 0.815)", color: "white", mx: "200px", textAlign: "left", p: "10px", pt:"1px", borderRadius: "10px"}}>
+							<Box sx={{backgroundColor: "rgb(80, 3, 100);", color: "white", mx: "200px", textAlign: "left", p: "10px", pt:"1px", borderRadius: "10px"}}>
 								<h2>{(theUser!).name}</h2>
 								<h3>{post.title}</h3>
 								<Typography>{post.body}</Typography>
@@ -208,10 +216,44 @@ const App = (props : any) => {
 	const PageLogin = () => {
 		return (
 			<Box sx = {{color: "white", fontFamily: "Candara"} }>
+				
 				<Box sx = {{color: "white", display:"grid", px:"400px", mt:"200px"}} >
-				<TextField label="E-mail" id="outlined-size-small"  size="small" sx = {{color: "white", pb:"20px"}}/>
-        		<TextField label="Senha" id="outlined-size-small"  size="small" sx = {{color: "white"}}/>
-				<Button variant="contained" sx = {{color: "white", mt:"20px"}} onClick={() => {setPage(0); setLogado(true)}}>Login</Button>
+					<h1>Our.Site</h1>
+					<TextField label="E-mail" id="outlined-size-small" size="small" 
+					sx={{		
+								input:{color:"white"},
+								label:{color:"white"},
+								'& label.Mui-focused' :{color:"white", borderColor:"white"},
+								'& .MuiOutlinedInput-root': {
+									'& fieldset': {
+										borderColor: "white",
+									},
+									'&:hover fieldset': {
+										borderColor: "white",
+									},
+									'&.Mui-focused fieldset': {
+										borderColor: "white",
+									},
+								}
+					}}/>
+        			<TextField label="Senha" id="outlined-size-small" style={{}} size="small" sx={{
+							pt:"20px",
+                            input:{color:"white"},
+                            label:{color:"white", pt:"20px"},
+                            '& label.Mui-focused' :{color:"white", borderColor:"white"},
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: "white",
+                                  },
+                                  '&:hover fieldset': {
+                                    borderColor: "white",
+                                  },
+                                  '&.Mui-focused fieldset': {
+                                    borderColor: "white",
+                                  },
+                            }
+                        }}/>
+				<Button variant="contained" sx = {{backgroundColor: "rgba(148, 42, 148, 0.815)", color: "white", mt:"20px"}} onClick={() => {setPage(0); setLogado(true)}}>Login</Button>
 				<Typography sx = {{color:"white", mt:"20px"}}>Não tem conta? </Typography><Link sx = {{color:"#00bcd4", mt:"20px"}} onClick={()=>{setPage(5)}}> Cadastre-se!</Link>
 				</Box>
       		</Box>
@@ -221,11 +263,45 @@ const App = (props : any) => {
 	const PageCadastrar = () => {
 		return (
 			<Box sx = {{color: "white", fontFamily: "Candara"} }>
+				
 				<Box sx = {{color: "white", display:"grid", px:"400px", mt:"200px"}} >
-				<TextField label="E-mail" id="outlined-size-small"  size="small" sx = {{color: "white", pb:"20px"}}/>
-        		<TextField label="Senha" id="outlined-size-small"  size="small" sx = {{color: "white"}}/>
-				<Button variant="contained" sx = {{color: "white", mt:"20px"}} onClick={() => {setPage(0); setLogado(true)}}>Cadastrar</Button>
-				<Typography sx = {{color:"white", mt:"20px"}}>Você já tem uma conta? </Typography><Link sx = {{color:"#00bcd4", mt:"20px"}} onClick={()=>{setPage(4)}}> Faça login!</Link>
+					<h1>Our.Site</h1>
+					<TextField label="E-mail" id="outlined-size-small" size="small" 
+					sx={{		
+								input:{color:"white"},
+								label:{color:"white"},
+								'& label.Mui-focused' :{color:"white", borderColor:"white"},
+								'& .MuiOutlinedInput-root': {
+									'& fieldset': {
+										borderColor: "white",
+									},
+									'&:hover fieldset': {
+										borderColor: "white",
+									},
+									'&.Mui-focused fieldset': {
+										borderColor: "white",
+									},
+								}
+					}}/>
+        			<TextField label="Senha" id="outlined-size-small" style={{}} size="small" sx={{
+							pt:"20px",
+                            input:{color:"white"},
+                            label:{color:"white", pt:"20px"},
+                            '& label.Mui-focused' :{color:"white", borderColor:"white"},
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: "white",
+                                  },
+                                  '&:hover fieldset': {
+                                    borderColor: "white",
+                                  },
+                                  '&.Mui-focused fieldset': {
+                                    borderColor: "white",
+                                  },
+                            }
+                        }}/>
+				<Button variant="contained" sx = {{backgroundColor: "rgba(148, 42, 148, 0.815)", color: "white", mt:"20px"}} onClick={() => {setPage(0); setLogado(true)}}>Cadastrar</Button>
+				<Typography sx = {{color:"white", mt:"20px"}}>Não tem conta? </Typography><Link sx = {{color:"#00bcd4", mt:"20px"}} onClick={()=>{setPage(4)}}> Faça login!</Link>
 				</Box>
       		</Box>
 		)
@@ -248,17 +324,11 @@ const App = (props : any) => {
 		if (logado === true) {
 			return (
 				<Box sx={{ flexGrow: 1 }}>
-				<AppBar position="static">
+				<AppBar position="static"  sx={{backgroundColor: "rgba(148, 42, 148, 0.815)", color: "white"}}>
 				<Toolbar>
-					<IconButton
-					size="large"
-					edge="start"
-					color="inherit"
-					aria-label="menu"
-					sx={{ mr: 2 }}
-					>
-					<MenuIcon />
-					</IconButton>
+					<a href="#" style={{color: "white"}}>
+					<ArrowBackIcon onClick={() => {PagePrevious();}}></ArrowBackIcon>
+					</a>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 					Meu Web Site
 					</Typography>
