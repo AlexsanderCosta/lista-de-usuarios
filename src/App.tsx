@@ -56,7 +56,7 @@ const App = (props : any) => {
 	
 		return (
 			<Container className="App" style={{fontFamily: "Candara"}}>
-				<h2>Lista de usuários</h2>
+				<h1>Lista de usuários</h1>
 				<div className="card">
 				{loading ? <h2>Carregando...</h2> : null}
 				<ul>
@@ -70,7 +70,7 @@ const App = (props : any) => {
 									<ListItemText primary={user.name} />
 								</ListItemButton>
 								<IconButton color="primary" aria-label="upload picture" component="label" onClick={() => {setPage(1); setMainUser(user.id)}}>
-        						<ListAltIcon />
+        						<ListAltIcon sx={{color: "white"}} />
       							</IconButton>
 						</ListItem>))}
 					</List>
@@ -162,12 +162,13 @@ const App = (props : any) => {
 				<List>
 					{posts.map((post) => (
 						<ListItem >
-							<Box sx={{backgroundColor: "rgb(80, 3, 100);", color: "white", mx: "200px", textAlign: "left", p: "10px", pt:"1px", borderRadius: "10px"}}>
+							<Box sx={{backgroundColor: "rgb(80, 3, 100);", color: "white", mx: "200px", textAlign: "left", p: "10px", pt:"1px", borderRadius: "10px", width: "600px"}}>
 								<h2>{(theUser!).name}</h2>
 								<h3>{post.title}</h3>
-								<Typography>{post.body}</Typography>
+								<img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Clear.png" alt="image" width= {"600px"} />
+								<Typography sx={{pt: "10px"}}>{post.body}</Typography>
 								<IconButton color="primary" aria-label="comment" component="label" onClick={() => {setPage(3); setMainPost(post.id)}}>
-        						<CommentIcon />
+        						<CommentIcon sx={{color: "white"}} />
       							</IconButton>
 							</Box>
 						</ListItem>
@@ -200,7 +201,7 @@ const App = (props : any) => {
 				<List>
 					{commentsPost.map((comment) => (
 						<ListItem>
-							<Box sx={{backgroundColor: "rgba(148, 42, 148, 0.815)", color: "white", mx: "200px", textAlign: "left", p: "10px", pt:"1px", borderRadius: "10px"}}>
+							<Box sx={{backgroundColor: "rgb(80, 3, 100);", color: "white", mx: "200px", textAlign: "left", p: "10px", pt:"1px", borderRadius: "10px", width: "600px", alignSelf: "center"}}>
 							<h2>{comment.name}</h2>
 							<h3>{comment.email}</h3>
 							<h3>{comment.body}</h3>
@@ -209,7 +210,6 @@ const App = (props : any) => {
 					))}
 				</List>
 			</Box>
-			
 		)
 	}
 
@@ -236,7 +236,7 @@ const App = (props : any) => {
 									},
 								}
 					}}/>
-        			<TextField label="Senha" id="outlined-size-small" style={{}} size="small" sx={{
+        			<TextField label="Senha" id="outlined-size-small" size="small" sx={{
 							pt:"20px",
                             input:{color:"white"},
                             label:{color:"white", pt:"20px"},
@@ -323,14 +323,14 @@ const App = (props : any) => {
 	const NavBar = () => {
 		if (logado === true) {
 			return (
-				<Box sx={{ flexGrow: 1 }}>
+				<Box sx={{ flexGrow: 1,}}>
 				<AppBar position="static"  sx={{backgroundColor: "rgba(148, 42, 148, 0.815)", color: "white"}}>
 				<Toolbar>
 					<a href="#" style={{color: "white"}}>
 					<ArrowBackIcon onClick={() => {PagePrevious();}}></ArrowBackIcon>
 					</a>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-					Meu Web Site
+					<Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: "Candara" }}>
+					<p style={{paddingLeft: "20px", fontSize: "25px"}}>Our.Site</p>
 					</Typography>
 					<Button color="inherit" onClick={() => {setPage(4); setLogado(false)}}>Log Out</Button>
 				</Toolbar>
