@@ -18,6 +18,14 @@ import CommentIcon from '@mui/icons-material/Comment';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MenuIcon from '@mui/icons-material/Menu';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Grow from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
+import Stack from '@mui/material/Stack';
 
 
 
@@ -326,11 +334,19 @@ const App = (props : any) => {
 				<Box sx={{ flexGrow: 1,}}>
 				<AppBar position="static"  sx={{backgroundColor: "rgba(148, 42, 148, 0.815)", color: "white"}}>
 				<Toolbar>
+					<IconButton
+						size="large"
+						edge="start"
+						color="inherit"
+						aria-label="menu"
+						sx={{ mr: 2 }}
+					>
+          			</IconButton>
 					<a href="#" style={{color: "white"}}>
 					<ArrowBackIcon onClick={() => {PagePrevious();}}></ArrowBackIcon>
 					</a>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: "Candara" }}>
-					<p style={{paddingLeft: "20px", fontSize: "25px"}}>Our.Site</p>
+					<p style={{paddingLeft: "80px", fontSize: "25px"}}>Our.Site</p>
 					</Typography>
 					<Button color="inherit" onClick={() => {setPage(4); setLogado(false)}}>Log Out</Button>
 				</Toolbar>
